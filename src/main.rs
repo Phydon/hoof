@@ -5,9 +5,9 @@ pub mod gui;
 use crate::gui::GuiMenu;
 pub mod utils;
 
-use ::log::error;
 use eframe::egui;
 use flexi_logger::{detailed_format, Duplicate, FileSpec, Logger};
+use log::error;
 use utils::check_create_config_dir;
 
 use std::process;

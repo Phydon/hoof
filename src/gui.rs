@@ -1,5 +1,5 @@
 use eframe::egui;
-use log::{error, info, warn};
+// use log::{error, info, warn};
 
 const WINDOW_WIDTH: f32 = 380.0;
 const WINDOW_HEIGHT: f32 = 560.0;
@@ -11,58 +11,9 @@ const PADDING: f32 = 10.0;
 
 #[derive(Default, PartialEq)]
 pub struct GuiMenu {
-    // note: Note,
-    // records: Vec<Note>,
-    // out_records: Vec<Note>,
-    msg: String,
-    warn: String,
     allowed_to_close: bool,
     show_confirmation_dialog: bool,
 }
-
-// impl GuiMenu {
-//     fn load_notes(&mut self) {
-//         match read_file(PATH_TO_RON) {
-//             Ok(container) => {
-//                 let info: &str = "✔ Notes loaded";
-//                 self.msg = info.to_string();
-//                 self.warn.clear();
-//                 self.out_records = container;
-
-//                 if let Some(store) = combine_storages(
-//                     &mut self.records,
-//                     &mut self.out_records
-//                 ) {
-//                     self.records = store
-//                 }
-//             }
-//             Err(err) => {
-//                 let info: &str = "✖ Unable to load notes";
-//                 self.warn = info.to_string();
-//                 self.msg.clear();
-//                 info!("{info}: {err}");
-//             }
-//         }
-//     }
-
-//     fn save_notes(&mut self) {
-//         match write_to_file(PATH_TO_RON, &self.records) {
-//             Ok(()) => {
-//                 let success_msg: &str =
-//                     "✔ Note written to file";
-//                 self.msg = success_msg.to_string();
-//                 self.warn.clear();
-//             }
-//             Err(err) => {
-//                 let err_msg: &str =
-//                     "✖ Unable to write to file";
-//                 self.warn = err_msg.to_string();
-//                 self.msg.clear();
-//                 warn!("{err_msg}: {err}")
-//             }
-//         }
-//     }
-// }
 
 impl eframe::App for GuiMenu {
     fn on_close_event(&mut self) -> bool {
@@ -73,11 +24,6 @@ impl eframe::App for GuiMenu {
     fn update(&mut self, ctx: &egui::Context, frame: &mut eframe::Frame) {
         // for the reset button
         let Self {
-            // note: _,
-            // records: _,
-            // out_records: _,
-            msg: _,
-            warn: _,
             allowed_to_close: _,
             show_confirmation_dialog: _,
         } = self;
@@ -156,9 +102,6 @@ impl eframe::App for GuiMenu {
                         .strong()
                         .color(egui::Color32::from_rgb(6, 165, 149)),
                 );
-                // ui.add(
-                //     egui::TextEdit::singleline(&mut self.msg.txt).hint_text("Enter your text here"),
-                // );
             });
             ui.add_space(PADDING);
 
@@ -167,40 +110,9 @@ impl eframe::App for GuiMenu {
                     .add_sized([120., 25.], egui::Button::new("💾 Save"))
                     .clicked()
                 {
-                    // GuiMenu::load_notes(self);
-                    todo!();
-
-                    // self.note.date = get_date_and_time();
-                    // match store_note(&mut self.records, &self.note.date, &self.note.txt) {
-                    //     Ok(()) => {
-                    //         // GuiMenu::save_notes(self);
-                    //         todo!();
-                    //     }
-                    //     Err(err) => {
-                    //         let err_msg: &str = "✖ Unable to store note";
-                    //         self.warn = err_msg.to_string();
-                    //         self.msg.clear();
-                    //         warn!("{err_msg}: {err}")
-                    //     }
-                    // }
+                    println!("Save clicked");
                 }
 
-                ui.add_space(PADDING);
-                if self.warn.is_empty() {
-                    ui.label(
-                        egui::RichText::new(format!("{}", self.msg))
-                            .size(20.0)
-                            .color(egui::Color32::from_rgb(78, 91, 173)),
-                    );
-                } else if self.msg.is_empty() {
-                    ui.label(
-                        egui::RichText::new(format!("{}", self.warn))
-                            .size(20.0)
-                            .color(egui::Color32::from_rgb(156, 16, 39)),
-                    );
-                } else {
-                    error!("Unable to show messages: self.msg and self.warn are not empty");
-                }
                 ui.add_space(PADDING);
             });
             ui.separator();
@@ -209,11 +121,10 @@ impl eframe::App for GuiMenu {
             egui::menu::bar(ui, |ui| {
                 ui.with_layout(egui::Layout::right_to_left(egui::Align::RIGHT), |ui| {
                     if ui
-                        .add_sized([120., 25.], egui::Button::new("⛃ Load notes"))
+                        .add_sized([120., 25.], egui::Button::new("⛃ Load"))
                         .clicked()
                     {
-                        // GuiMenu::load_notes(self);
-                        todo!();
+                        println!("Loaded clicked");
                     }
                 });
             });
@@ -227,27 +138,26 @@ impl eframe::App for GuiMenu {
                         .max_col_width(WINDOW_WIDTH)
                         .show(ui, |ui| {
                             let mut idx: u64 = 1;
-                            // for note in &self.records {
-                            for note in 0..1 {
+                            for _ in 0..=10 {
                                 ui.label(format!("{}", idx));
 
-                                // ui.label(
-                                //     egui::RichText::new(format!("{}", note.date.0,))
-                                //         .size(20.0)
-                                //         .color(egui::Color32::from_rgb(76, 116, 166)),
-                                // );
+                                ui.label(
+                                    egui::RichText::new(format!("{}", "Something",))
+                                        .size(20.0)
+                                        .color(egui::Color32::from_rgb(76, 116, 166)),
+                                );
 
-                                // ui.label(
-                                //     egui::RichText::new(format!("{}", note.date.1,))
-                                //         .size(20.0)
-                                //         .color(egui::Color32::from_rgb(76, 116, 166)),
-                                // );
+                                ui.label(
+                                    egui::RichText::new(format!("{}", "important",))
+                                        .size(20.0)
+                                        .color(egui::Color32::from_rgb(76, 116, 166)),
+                                );
 
-                                // ui.label(
-                                //     egui::RichText::new(format!("{}", note.txt,))
-                                //         .size(25.0)
-                                //         .color(egui::Color32::from_rgb(22, 146, 196)),
-                                // );
+                                ui.label(
+                                    egui::RichText::new(format!("{}", "in here",))
+                                        .size(25.0)
+                                        .color(egui::Color32::from_rgb(22, 146, 196)),
+                                );
 
                                 ui.end_row();
                                 idx += 1;
