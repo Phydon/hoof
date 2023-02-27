@@ -4,6 +4,7 @@
 pub mod gui;
 use crate::gui::GuiMenu;
 pub mod utils;
+pub mod work;
 
 use eframe::egui;
 use flexi_logger::{detailed_format, Duplicate, FileSpec, Logger};

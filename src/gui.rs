@@ -1,5 +1,7 @@
 use eframe::egui;
-// use log::{error, info, warn};
+use log::{error, info, warn};
+
+use crate::work::*;
 
 const WINDOW_WIDTH: f32 = 380.0;
 const WINDOW_HEIGHT: f32 = 560.0;
@@ -11,6 +13,7 @@ const PADDING: f32 = 10.0;
 
 #[derive(Default, PartialEq)]
 pub struct GuiMenu {
+    workday: Workday,
     allowed_to_close: bool,
     show_confirmation_dialog: bool,
 }
@@ -24,6 +27,7 @@ impl eframe::App for GuiMenu {
     fn update(&mut self, ctx: &egui::Context, frame: &mut eframe::Frame) {
         // for the reset button
         let Self {
+            workday: _,
             allowed_to_close: _,
             show_confirmation_dialog: _,
         } = self;
@@ -111,6 +115,12 @@ impl eframe::App for GuiMenu {
                     .clicked()
                 {
                     println!("Save clicked");
+                    if let Ok(workday) = Workday::new() {
+                        info!("{:?}", workday.day);
+                        info!("{:?}", workday.date);
+                    } else {
+                        error!("Error creating Workday");
+                    }
                 }
 
                 ui.add_space(PADDING);
